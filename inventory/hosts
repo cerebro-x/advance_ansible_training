@@ -3,7 +3,7 @@ frontend1.4733.internal ansible_ssh_host=frontend1.4733.example.opentlc.com
 
 [apps]
 app1.4733.internal ansible_ssh_host=app1.4733.example.opentlc.com
-app2.4733.internal ansible_ssh_host=app2.4733.example.opnetlc.com
+app2.4733.internal ansible_ssh_host=app2.4733.example.opentlc.com
 
 [appdbs]
-appdb1.4733.internal ansible_ssh_host=appdb1.example.opentlc.com
+appdb1.4733.internal ansible_ssh_host=appdb1.4733.example.opentlc.com
