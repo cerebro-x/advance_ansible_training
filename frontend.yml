@@ -1,0 +1,33 @@
+---
+- name: Setup HA Proxy
+  hosts: frontends
+  become: true
+  vars:
+    apps:
+      - app1
+      - app2
+  tasks:
+    - name: Install required packages
+      yum:
+        name: haproxy
+        state: latest
+
+    - name: Enable required services
+      service:
+        name: haproxy
+        state: started
+        enabled: true
+
+    - name: Copy HAProxy configuration
+      template:
+        src: haproxy.cfg.j2
+        dest: /etc/haproxy/haproxy.cfg
+      notify:
+        - restart haproxy
+
+  handlers:
+    - name: restart haproxy
+      service:
+        name: haproxy
+        state: restarted
+

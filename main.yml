@@ -1,0 +1,13 @@
+--- 
+- name: Setting up repo
+  import_playbook: repo.yml
+
+- name: Setting up frontend
+  import_playbook: frontend.yml
+
+- name: Setting up web
+  import_playbook: web.yml
+
+- name: Setting up db
+  import_playbook: db.yml
+

@@ -1,0 +1,35 @@
+---
+- name: Setup App Servers
+  hosts: apps
+  become: true
+  tasks:
+    - name: Install required packages
+      yum:
+        name: tomcat
+        state: latest
+
+    - name: Ensure the service is started 
+      service:
+        name: tomcat
+        state: started
+        enabled: true
+
+    - name: Create ansible tomcat directory
+      file:
+        path: /usr/share/tomcat/webapps/ROOT
+        state: directory
+
+    - name: Copy index.html to tomcat webapps/ansible/index.html
+      template:
+        src: index.html.j2
+        dest: /usr/share/tomcat/webapps/ROOT/index.html
+        mode: 0644
+      notify:
+        - restart tomcat
+
+  handlers:
+    - name: restart tomcat
+      service:
+        name: tomcat
+        state: restarted
+

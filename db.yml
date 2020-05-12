@@ -1,0 +1,24 @@
+---
+- name: Setup Postgresql
+  hosts: appdbs
+  become: true
+  tasks:
+    - name: Installed Required packages
+      yum:
+        name: postgresql-server
+        state: latest
+    
+    - name: Check to see if path is empty
+      command: ls /var/lib/pgsql/data/
+      register: output
+
+    - name: Initialize Postgres
+      command: postgresql-setup initdb
+      when: output.stdout == ""
+
+    - name: Ensure service is started
+      service:
+        name: postgresql
+        state: started
+        enabled: true
+
